@@ -1,9 +1,21 @@
 const multer = require("multer");
+const path = require("path");
 
-// ✅ Use memory storage so files are not saved locally
-const storage = multer.memoryStorage();
+// 1. Configure diskStorage to save files to disk
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Make sure this 'uploads' directory exists in your backend root
+    // You might need to create it manually: mkdir uploads
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    // Create a unique filename to prevent conflicts
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
 
-// ✅ File filter for images/videos
+// 2. Keep your original fileFilter (it was correct)
 const fileFilter = (req, file, cb) => {
   const allowedMimes = [
     "image/jpeg",
@@ -25,9 +37,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// ✅ Multer config
+// 3. Export multer with the new diskStorage
 const upload = multer({
-  storage,
+  storage: storage, // <-- This is the important change
   fileFilter,
   limits: {
     fileSize: 100 * 1024 * 1024, // 100MB
