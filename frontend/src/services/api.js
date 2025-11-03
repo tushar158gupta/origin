@@ -79,7 +79,7 @@ export const getMediaUrl = (fileUrl) => {
   if (fileUrl.startsWith('http')) {
     return fileUrl;
   }
-  return `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${fileUrl}`;
+  return `http://localhost:5000/${fileUrl}`;
 };
 
 export default api;

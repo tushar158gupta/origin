@@ -24,7 +24,7 @@ exports.uploadMedia = async (req, res) => {
       userId: req.userId,
       filename: req.file.filename,
       originalName: req.file.originalname,
-      fileUrl: `/uploads/${req.file.filename}`,
+      fileUrl: `uploads/${req.file.filename}`,
       fileType: fileType,
       mimeType: req.file.mimetype,
       fileSize: req.file.size,
