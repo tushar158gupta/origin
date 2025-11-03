@@ -11,7 +11,11 @@ const mediaRoutes = require('./routes/media');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin:[
+    "https://originassignment.vercel.app/"
+  ]
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
