@@ -13,7 +13,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin:[
-    "https://originassignment.vercel.app/"
+    "https://originassignment.vercel.app" , "http://localhost:3000"
   ]
 }));
 app.use(express.json());
